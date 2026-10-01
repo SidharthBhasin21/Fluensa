@@ -3,3 +3,102 @@
 @import "tailwindcss/utilities.css";
 
 @import "nativewind/theme";
+
+/* Design tokens (colors + fonts) */
+@import "./src/theme/theme.css";
+
+/*
+ * Typography — one class per text style from the design system.
+ * Sizes use px because NativeWind's native rem is 14, not 16.
+ * Line height = font size × design ratio, rounded.
+ * Usage: <Text className="h1 text-foreground">
+ */
+
+/* H1 · Page / Screen title · 32px Bold · 1.2 */
+@utility h1 {
+  font-family: var(--font-poppins-bold);
+  font-size: 32px;
+  line-height: 38px;
+}
+
+/* H2 · Section title · 24px SemiBold · 1.3 */
+@utility h2 {
+  font-family: var(--font-poppins-semibold);
+  font-size: 24px;
+  line-height: 31px;
+}
+
+/* H3 · Card / Module title · 20px SemiBold · 1.3 */
+@utility h3 {
+  font-family: var(--font-poppins-semibold);
+  font-size: 20px;
+  line-height: 26px;
+}
+
+/* H4 · Subheading · 16px Medium · 1.4 */
+@utility h4 {
+  font-family: var(--font-poppins-medium);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+/* Body Large · Important content · 16px Regular · 1.6 */
+@utility body-lg {
+  font-family: var(--font-poppins);
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* Body Medium · Body text · 14px Regular · 1.6 */
+@utility body-md {
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+/* Body Small · Supporting text · 13px Regular · 1.6 */
+@utility body-sm {
+  font-family: var(--font-poppins);
+  font-size: 13px;
+  line-height: 21px;
+}
+
+/* Caption · Labels, meta text · 11px Regular · 1.4 */
+@utility caption {
+  font-family: var(--font-poppins);
+  font-size: 11px;
+  line-height: 15px;
+}
+
+/*
+ * Eyebrow — small uppercase labels ("PRIMARY", "SEMANTIC").
+ * eyebrow--primary is the larger teal section heading ("BRAND", "COLORS").
+ * Use one or the other, not both.
+ */
+@utility eyebrow {
+  font-family: var(--font-poppins-medium);
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+@utility eyebrow--primary {
+  font-family: var(--font-poppins-semibold);
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+/* Card — white rounded container with a soft shadow */
+@utility card {
+  background-color: var(--color-background);
+  border-radius: 24px;
+  border-width: 1px;
+  border-color: var(--color-surface);
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+}

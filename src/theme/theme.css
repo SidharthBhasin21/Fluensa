@@ -1,0 +1,35 @@
+/*
+ * Fluensa design tokens for NativeWind.
+ * Every token here becomes a utility class, e.g.
+ *   --color-primary      → bg-primary, text-primary, border-primary
+ *   --font-poppins-bold  → font-poppins-bold
+ * Keep in sync with `colors.ts` and `typography.ts`.
+ */
+
+@theme {
+  /* Primary / brand */
+  --color-primary: #14b8a6; /* Fluensa Teal */
+  --color-primary-deep: #0f766e; /* Fluensa Deep Teal */
+  --color-accent: #facc15; /* Fluensa Yellow */
+  --color-coral: #ff7a59; /* Fluensa Coral */
+
+  /* Semantic */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-streak: #fb923c;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Neutrals */
+  --color-foreground: #0f172a; /* Text / Primary */
+  --color-muted: #475569; /* Text / Secondary */
+  --color-border: #e2e8f0;
+  --color-surface: #f8fafc;
+  --color-background: #ffffff;
+
+  /* Fonts — names must match the keys loaded with useFonts */
+  --font-poppins: "Poppins-Regular";
+  --font-poppins-medium: "Poppins-Medium";
+  --font-poppins-semibold: "Poppins-SemiBold";
+  --font-poppins-bold: "Poppins-Bold";
+}
