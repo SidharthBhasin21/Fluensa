@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { Link } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
 
 // Temporary preview of the design system. Replace with the onboarding screen.
 export default function Index() {
@@ -33,6 +34,12 @@ export default function Index() {
           <View className="size-10 rounded-xl border border-border bg-background" />
         </View>
       </View>
+
+      <Link href="/onboarding" asChild>
+        <TouchableOpacity className="btn-primary" activeOpacity={0.85}>
+          <Text className="btn-primary__label">Open Onboarding</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 }

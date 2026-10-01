@@ -102,3 +102,104 @@
   padding: 24px;
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
 }
+
+/*
+ * Primary button — large teal call to action ("Get Started").
+ * Usage: <TouchableOpacity className="btn-primary"><Text className="btn-primary__label">
+ */
+@utility btn-primary {
+  height: 74px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: var(--color-primary);
+  box-shadow: 0 10px 24px rgba(20, 184, 166, 0.25);
+}
+
+@utility btn-primary__label {
+  font-family: var(--font-poppins-semibold);
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--color-background);
+}
+
+/* Chevron "›" drawn with two borders of a rotated square */
+@utility btn-primary__chevron {
+  position: absolute;
+  right: 42px;
+  width: 13px;
+  height: 13px;
+  border-top-width: 3px;
+  border-right-width: 3px;
+  border-color: var(--color-background);
+  transform: rotate(45deg);
+}
+
+/*
+ * Speech bubble — colored greeting bubbles around the mascot.
+ * Text color doesn't inherit from a View in React Native,
+ * so the bubble, tail and text each get their own color modifier:
+ * <View className="speech-bubble speech-bubble--teal">
+ *   <View className="speech-bubble__tail speech-bubble--teal" />
+ *   <Text className="speech-bubble__text speech-bubble__text--teal">Hello!</Text>
+ */
+@utility speech-bubble {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+@utility speech-bubble__tail {
+  position: absolute;
+  bottom: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+
+@utility speech-bubble__text {
+  font-family: var(--font-poppins-semibold);
+  font-size: 22px;
+  line-height: 30px;
+}
+
+@utility speech-bubble--teal {
+  background-color: #dbf7f8;
+}
+
+@utility speech-bubble--yellow {
+  background-color: #fef6e2;
+}
+
+@utility speech-bubble--coral {
+  background-color: #ffebe7;
+}
+
+@utility speech-bubble__text--teal {
+  color: #0b4f5c;
+}
+
+@utility speech-bubble__text--yellow {
+  color: #c68a12;
+}
+
+@utility speech-bubble__text--coral {
+  color: #f4552f;
+}
+
+/* Soft decorative background shapes behind illustrations */
+@utility blob {
+  position: absolute;
+  border-radius: 9999px;
+}
+
+@utility blob--teal {
+  background-color: #e6f9f9;
+}
+
+@utility blob--cream {
+  background-color: #fef9ec;
+}
