@@ -297,17 +297,18 @@ export default function AuthScreen({
                 {submitLabel}
               </Text>
             )}
-            <SymbolView
-              name={{
-                ios: "arrow.right",
-                android: "arrow_forward",
-                web: "arrow_forward",
-              }}
-              size={22}
-              weight="semibold"
-              tintColor={colors.background}
-              style={styles.submitArrow}
-            />
+            <View className="absolute right-[22px]">
+              <SymbolView
+                name={{
+                  ios: "arrow.right",
+                  android: "arrow_forward",
+                  web: "arrow_forward",
+                }}
+                size={22}
+                weight="semibold"
+                tintColor={colors.background}
+              />
+            </View>
           </TouchableOpacity>
 
           {/* Divider */}
@@ -386,10 +387,5 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-  },
-  // SymbolView doesn't support className.
-  submitArrow: {
-    position: "absolute",
-    right: 22,
   },
 });

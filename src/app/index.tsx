@@ -1,5 +1,5 @@
 import { useAuth, useUser } from "@clerk/expo";
-import { Redirect } from "expo-router";
+import { Link, Redirect } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 // Temporary home screen: proves the user is signed in. Replace with the real home tabs.
@@ -24,6 +24,12 @@ export default function Index() {
           {user?.primaryEmailAddress?.emailAddress}
         </Text>
       </View>
+
+      <Link href="/language-selection" asChild>
+        <TouchableOpacity className="btn-primary" activeOpacity={0.85}>
+          <Text className="btn-primary__label">Choose a Language</Text>
+        </TouchableOpacity>
+      </Link>
 
       <TouchableOpacity
         className="btn-primary"
