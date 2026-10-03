@@ -16,6 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import LanguageCard from "@/components/LanguageCard";
 import { images } from "@/constants/images";
 import { languages } from "@/data/languages";
+import { useLanguageStore } from "@/store/useLanguageStore";
 import { colors } from "@/theme";
 import type { LanguageCode } from "@/types/learning";
 
@@ -45,7 +46,13 @@ function getEarthStyle(area: LayoutRectangle) {
 export default function LanguageSelection() {
   const [earthArea, setEarthArea] = useState<LayoutRectangle | null>(null);
   const [search, setSearch] = useState("");
-  const [selectedCode, setSelectedCode] = useState<LanguageCode>("es");
+  const savedLanguage = useLanguageStore((state) => state.selectedLanguage);
+  const setSelectedLanguage = useLanguageStore(
+    (state) => state.setSelectedLanguage,
+  );
+  const [selectedCode, setSelectedCode] = useState<LanguageCode>(
+    savedLanguage ?? "es",
+  );
 
   const query = search.trim().toLowerCase();
   const filteredLanguages = languages.filter(
@@ -62,9 +69,11 @@ export default function LanguageSelection() {
     }
   };
 
-  // TODO: save the selected language in a Zustand store once it exists.
+  // Save the language, then go home. dismissTo pops back to home if it's
+  // already in the stack, otherwise it replaces this screen with home.
   const handleConfirm = () => {
-    handleBack();
+    setSelectedLanguage(selectedCode);
+    router.dismissTo("/");
   };
 
   return (
