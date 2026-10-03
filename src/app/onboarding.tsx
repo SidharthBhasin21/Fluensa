@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { Image, LayoutRectangle, Text, TouchableOpacity, View } from "react-native";
@@ -100,12 +101,14 @@ export default function Onboarding() {
           )}
         </View>
 
-        {/* Call to action — will navigate to the auth screen once it exists */}
+        {/* Call to action */}
         <View className="px-[26px] pb-[30px]">
-          <TouchableOpacity className="btn-primary" activeOpacity={0.85}>
-            <Text className="btn-primary__label">Get Started</Text>
-            <View className="btn-primary__chevron" />
-          </TouchableOpacity>
+          <Link href="/sign-up" asChild>
+            <TouchableOpacity className="btn-primary" activeOpacity={0.85}>
+              <Text className="btn-primary__label">Get Started</Text>
+              <View className="btn-primary__chevron" />
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
     </SafeAreaView>

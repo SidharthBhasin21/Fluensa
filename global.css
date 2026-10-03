@@ -203,3 +203,88 @@
 @utility blob--cream {
   background-color: #fef9ec;
 }
+
+/*
+ * Auth field — white rounded box with a small label above the input.
+ * <View className="auth-field">
+ *   <Text className="auth-field__label">Email</Text>
+ *   <TextInput ... />
+ */
+@utility auth-field {
+  height: 74px;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: #e8edf3;
+  background-color: var(--color-background);
+  padding-left: 17px;
+  padding-right: 17px;
+  padding-top: 13px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+@utility auth-field__label {
+  font-family: var(--font-poppins);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--color-muted);
+}
+
+/*
+ * Social button — "Continue with Google / Facebook / Apple".
+ * <TouchableOpacity className="social-btn">
+ *   <View className="social-btn__icon"><Image /></View>
+ *   <Text className="social-btn__label">Continue with Google</Text>
+ */
+@utility social-btn {
+  height: 52px;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: #e8edf3;
+  background-color: var(--color-background);
+  padding-left: 29px;
+}
+
+@utility social-btn__icon {
+  width: 28px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+@utility social-btn__label {
+  margin-left: 32px;
+  font-family: var(--font-poppins-medium);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-foreground);
+}
+
+/*
+ * Code cell — one box of the 6-digit verification code.
+ * <View className="code-cell code-cell--active">
+ *   <Text className="code-cell__digit">4</Text>
+ */
+@utility code-cell {
+  height: 56px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border-width: 1.5px;
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+}
+
+@utility code-cell--active {
+  border-color: var(--color-primary);
+  background-color: var(--color-background);
+}
+
+@utility code-cell__digit {
+  font-family: var(--font-poppins-semibold);
+  font-size: 22px;
+  line-height: 30px;
+  color: var(--color-foreground);
+}
