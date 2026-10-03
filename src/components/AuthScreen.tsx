@@ -8,6 +8,7 @@ import {
   Image,
   ImageSourcePropType,
   LayoutChangeEvent,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -31,8 +32,8 @@ type SocialProvider = {
   label: string;
   icon: ImageSourcePropType;
   iconClassName: string;
-  // Clerk strategy for this provider. Providers without one aren't wired up yet.
-  strategy?: OAuthStrategy;
+  strategy: OAuthStrategy;
+  iosOnly?: boolean;
 };
 
 const SOCIAL_PROVIDERS: SocialProvider[] = [
@@ -42,9 +43,19 @@ const SOCIAL_PROVIDERS: SocialProvider[] = [
     iconClassName: "size-[28px]",
     strategy: "oauth_google",
   },
-  { label: "Facebook", icon: images.facebookLogo, iconClassName: "size-[28px]" },
-  { label: "Apple", icon: images.appleLogo, iconClassName: "h-[29px] w-[24px]" },
+  {
+    label: "Apple",
+    icon: images.appleLogo,
+    iconClassName: "h-[29px] w-[24px]",
+    strategy: "oauth_apple",
+    iosOnly: true,
+  },
 ];
+
+// Sign in with Apple is only offered on iPhone / iPad.
+const VISIBLE_PROVIDERS = SOCIAL_PROVIDERS.filter(
+  (provider) => !provider.iosOnly || Platform.OS === "ios",
+);
 
 // The illustration is laid out in design-space points at its full height,
 // then scaled down to fit whatever space is left so the screen never scrolls.
@@ -310,12 +321,11 @@ export default function AuthScreen({
 
           {/* Social sign in */}
           <View className="mt-[14px] gap-[8px]">
-            {SOCIAL_PROVIDERS.map((provider) => (
+            {VISIBLE_PROVIDERS.map((provider) => (
               <TouchableOpacity
                 key={provider.label}
                 className="social-btn"
                 onPress={() => {
-                  if (!provider.strategy) return;
                   setError(null);
                   social.signInWith(provider.strategy);
                 }}
