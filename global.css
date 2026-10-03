@@ -102,3 +102,198 @@
   padding: 24px;
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
 }
+
+/*
+ * Primary button — large teal call to action ("Get Started").
+ * Usage: <TouchableOpacity className="btn-primary"><Text className="btn-primary__label">
+ */
+@utility btn-primary {
+  height: 74px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: var(--color-primary);
+  box-shadow: 0 10px 24px rgba(20, 184, 166, 0.25);
+}
+
+@utility btn-primary__label {
+  font-family: var(--font-poppins-semibold);
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--color-background);
+}
+
+/* Chevron "›" drawn with two borders of a rotated square */
+@utility btn-primary__chevron {
+  position: absolute;
+  right: 42px;
+  width: 13px;
+  height: 13px;
+  border-top-width: 3px;
+  border-right-width: 3px;
+  border-color: var(--color-background);
+  transform: rotate(45deg);
+}
+
+/*
+ * Speech bubble — colored greeting bubbles around the mascot.
+ * Text color doesn't inherit from a View in React Native,
+ * so the bubble, tail and text each get their own color modifier:
+ * <View className="speech-bubble speech-bubble--teal">
+ *   <View className="speech-bubble__tail speech-bubble--teal" />
+ *   <Text className="speech-bubble__text speech-bubble__text--teal">Hello!</Text>
+ */
+@utility speech-bubble {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+@utility speech-bubble__tail {
+  position: absolute;
+  bottom: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+
+@utility speech-bubble__text {
+  font-family: var(--font-poppins-semibold);
+  font-size: 22px;
+  line-height: 30px;
+}
+
+@utility speech-bubble--teal {
+  background-color: #dbf7f8;
+}
+
+@utility speech-bubble--yellow {
+  background-color: #fef6e2;
+}
+
+@utility speech-bubble--coral {
+  background-color: #ffebe7;
+}
+
+@utility speech-bubble__text--teal {
+  color: #0b4f5c;
+}
+
+@utility speech-bubble__text--yellow {
+  color: #c68a12;
+}
+
+@utility speech-bubble__text--coral {
+  color: #f4552f;
+}
+
+/* Soft decorative background shapes behind illustrations */
+@utility blob {
+  position: absolute;
+  border-radius: 9999px;
+}
+
+@utility blob--teal {
+  background-color: #e6f9f9;
+}
+
+@utility blob--cream {
+  background-color: #fef9ec;
+}
+
+/*
+ * Auth field — white rounded box with a small label above the input.
+ * <View className="auth-field">
+ *   <Text className="auth-field__label">Email</Text>
+ *   <TextInput className="auth-field__input" ... />
+ */
+@utility auth-field {
+  height: 74px;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: #e8edf3;
+  background-color: var(--color-background);
+  padding-left: 17px;
+  padding-right: 17px;
+  padding-top: 13px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+@utility auth-field__label {
+  font-family: var(--font-poppins);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--color-muted);
+}
+
+@utility auth-field__input {
+  height: 28px;
+  margin-top: 6px;
+  padding: 0;
+  font-family: var(--font-poppins);
+  font-size: 15px;
+  color: var(--color-foreground);
+}
+
+/*
+ * Social button — "Continue with Google / Facebook / Apple".
+ * <TouchableOpacity className="social-btn">
+ *   <View className="social-btn__icon"><Image /></View>
+ *   <Text className="social-btn__label">Continue with Google</Text>
+ */
+@utility social-btn {
+  height: 52px;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: #e8edf3;
+  background-color: var(--color-background);
+  padding-left: 29px;
+}
+
+@utility social-btn__icon {
+  width: 28px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+@utility social-btn__label {
+  margin-left: 32px;
+  font-family: var(--font-poppins-medium);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-foreground);
+}
+
+/*
+ * Code cell — one box of the 6-digit verification code.
+ * <View className="code-cell code-cell--active">
+ *   <Text className="code-cell__digit">4</Text>
+ */
+@utility code-cell {
+  height: 56px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border-width: 1.5px;
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+}
+
+@utility code-cell--active {
+  border-color: var(--color-primary);
+  background-color: var(--color-background);
+}
+
+@utility code-cell__digit {
+  font-family: var(--font-poppins-semibold);
+  font-size: 22px;
+  line-height: 30px;
+  color: var(--color-foreground);
+}
