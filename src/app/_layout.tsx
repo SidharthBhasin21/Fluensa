@@ -1,3 +1,5 @@
+import { ClerkProvider } from "@clerk/expo";
+import { tokenCache } from "@clerk/expo/token-cache";
 import "../../global.css";
 
 import { useFonts } from "expo-font";
@@ -6,6 +8,14 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 import { fontAssets } from "@/theme";
+
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY ?? "";
+
+if (!publishableKey) {
+  throw new Error(
+    "Missing EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY. Run `clerk env pull`, then restart the dev server.",
+  );
+}
 
 // Keep the splash screen visible until the fonts are ready.
 SplashScreen.preventAutoHideAsync();
@@ -24,9 +34,12 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-    </Stack>
+    <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      </Stack>
+    </ClerkProvider>
   );
 }

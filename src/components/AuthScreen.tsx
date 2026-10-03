@@ -1,12 +1,15 @@
 import { Href, Link, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import type { OAuthStrategy } from "@clerk/expo/types";
 import { SymbolView } from "expo-symbols";
 import { useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Image,
   ImageSourcePropType,
   LayoutChangeEvent,
   ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -19,50 +22,51 @@ import {
 
 import VerificationModal from "@/components/VerificationModal";
 import { images } from "@/constants/images";
+import { AuthMode, useEmailAuth } from "@/hooks/useEmailAuth";
 import { useKeyboardHeight } from "@/hooks/useKeyboardHeight";
-import { colors, fontFamily } from "@/theme";
+import { useSocialAuth } from "@/hooks/useSocialAuth";
+import { colors } from "@/theme";
 
 type SocialProvider = {
   label: string;
   icon: ImageSourcePropType;
   iconClassName: string;
+  // Clerk strategy for this provider. Providers without one aren't wired up yet.
+  strategy?: OAuthStrategy;
 };
 
 const SOCIAL_PROVIDERS: SocialProvider[] = [
-  { label: "Google", icon: images.googleLogo, iconClassName: "size-[28px]" },
+  {
+    label: "Google",
+    icon: images.googleLogo,
+    iconClassName: "size-[28px]",
+    strategy: "oauth_google",
+  },
   { label: "Facebook", icon: images.facebookLogo, iconClassName: "size-[28px]" },
   { label: "Apple", icon: images.appleLogo, iconClassName: "h-[29px] w-[24px]" },
 ];
-
-const inputStyle = {
-  height: 28,
-  padding: 0,
-  marginTop: 6,
-  fontFamily: fontFamily.regular,
-  fontSize: 15,
-  color: colors.foreground,
-};
 
 // The illustration is laid out in design-space points at its full height,
 // then scaled down to fit whatever space is left so the screen never scrolls.
 const ART_HEIGHT = 177;
 
 type AuthScreenProps = {
+  mode: AuthMode;
   title: string;
   subtitle: string;
   submitLabel: string;
-  showPasswordField?: boolean;
   footerPrompt: string;
   footerLinkLabel: string;
   footerHref: Href;
 };
 
-// Shared layout for the Sign Up and Sign In screens (UI only for now, no real auth).
+// Shared layout for the Sign Up and Sign In screens.
+// Sign in: email -> emailed code. Sign up: email + password -> emailed code.
 export default function AuthScreen({
+  mode,
   title,
   subtitle,
   submitLabel,
-  showPasswordField = false,
   footerPrompt,
   footerLinkLabel,
   footerHref,
@@ -71,6 +75,11 @@ export default function AuthScreen({
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
+  const { sendCode, resendCode, verifyCode, error, setError, isLoading } =
+    useEmailAuth(mode);
+  const social = useSocialAuth();
+  const isSignUp = mode === "sign-up";
+  const formError = error ?? social.error;
 
   const insets = useSafeAreaInsets();
   const keyboardHeight = useKeyboardHeight();
@@ -92,9 +101,15 @@ export default function AuthScreen({
     }
   };
 
-  const handleVerified = () => {
+  const handleSubmit = async () => {
+    social.setError(null);
+    const isCodeSent = await sendCode(email.trim(), password);
+    if (isCodeSent) setIsVerifying(true);
+  };
+
+  const handleCloseVerification = () => {
     setIsVerifying(false);
-    router.dismissTo("/");
+    setError(null);
   };
 
   // Keyboard closed: remember the full screen height.
@@ -117,18 +132,17 @@ export default function AuthScreen({
   return (
     <SafeAreaView
       edges={["top"]}
-      style={{
-        flex: 1,
-        backgroundColor: colors.background,
-        paddingBottom: Math.max(keyboardHeight, insets.bottom),
-      }}
+      style={[
+        styles.safeArea,
+        { paddingBottom: Math.max(keyboardHeight, insets.bottom) },
+      ]}
     >
       <StatusBar style="dark" />
 
       <ScrollView
         ref={scrollRef}
         onLayout={handleScrollLayout}
-        contentContainerStyle={{ flexGrow: 1, minHeight: screenHeight }}
+        contentContainerStyle={[styles.scrollContent, { minHeight: screenHeight }]}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
@@ -167,12 +181,8 @@ export default function AuthScreen({
         >
           {artScale > 0 && (
             <View
+              className="absolute inset-x-0 bottom-0 h-[177px]"
               style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                bottom: 0,
-                height: ART_HEIGHT,
                 // Scale around the bottom edge so the mascot stays on top of the form
                 transform: [
                   { translateY: (ART_HEIGHT * (1 - artScale)) / 2 },
@@ -214,11 +224,11 @@ export default function AuthScreen({
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect={false}
-              style={inputStyle}
+              className="auth-field__input"
             />
           </View>
 
-          {showPasswordField && (
+          {isSignUp && (
             <View className="auth-field mt-[12px] flex-row items-center pt-0">
               <View className="flex-1">
                 <Text className="auth-field__label">Password</Text>
@@ -230,7 +240,7 @@ export default function AuthScreen({
                   secureTextEntry={!isPasswordVisible}
                   autoCapitalize="none"
                   autoComplete="password-new"
-                  style={inputStyle}
+                  className="auth-field__input"
                 />
               </View>
 
@@ -252,18 +262,30 @@ export default function AuthScreen({
             </View>
           )}
 
+          {formError && !isVerifying && (
+            <Text className="body-sm mt-[12px] text-error">{formError}</Text>
+          )}
+
+          {/* Clerk's bot protection (CAPTCHA) mounts here during sign up */}
+          {isSignUp && <View nativeID="clerk-captcha" />}
+
           <TouchableOpacity
             className="btn-primary mt-[20px] h-[58px] rounded-[16px]"
             onLayout={(event) => {
               const { y, height } = event.nativeEvent.layout;
               submitBottomRef.current = y + height;
             }}
-            onPress={() => setIsVerifying(true)}
+            onPress={handleSubmit}
+            disabled={isLoading || social.loadingStrategy !== null}
             activeOpacity={0.85}
           >
-            <Text className="btn-primary__label text-[18px] leading-[26px]">
-              {submitLabel}
-            </Text>
+            {isLoading && !isVerifying ? (
+              <ActivityIndicator color={colors.background} />
+            ) : (
+              <Text className="btn-primary__label text-[18px] leading-[26px]">
+                {submitLabel}
+              </Text>
+            )}
             <SymbolView
               name={{
                 ios: "arrow.right",
@@ -273,7 +295,7 @@ export default function AuthScreen({
               size={22}
               weight="semibold"
               tintColor={colors.background}
-              style={{ position: "absolute", right: 22 }}
+              style={styles.submitArrow}
             />
           </TouchableOpacity>
 
@@ -292,14 +314,24 @@ export default function AuthScreen({
               <TouchableOpacity
                 key={provider.label}
                 className="social-btn"
+                onPress={() => {
+                  if (!provider.strategy) return;
+                  setError(null);
+                  social.signInWith(provider.strategy);
+                }}
+                disabled={isLoading || social.loadingStrategy !== null}
                 activeOpacity={0.7}
               >
                 <View className="social-btn__icon">
-                  <Image
-                    source={provider.icon}
-                    className={provider.iconClassName}
-                    resizeMode="contain"
-                  />
+                  {social.loadingStrategy === provider.strategy ? (
+                    <ActivityIndicator color={colors.primary} />
+                  ) : (
+                    <Image
+                      source={provider.icon}
+                      className={provider.iconClassName}
+                      resizeMode="contain"
+                    />
+                  )}
                 </View>
                 <Text className="social-btn__label">
                   Continue with {provider.label}
@@ -327,9 +359,27 @@ export default function AuthScreen({
       <VerificationModal
         visible={isVerifying}
         email={email}
-        onClose={() => setIsVerifying(false)}
-        onVerified={handleVerified}
+        error={error}
+        isLoading={isLoading}
+        onClose={handleCloseVerification}
+        onSubmitCode={verifyCode}
+        onResend={resendCode}
       />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
+  // SymbolView doesn't support className.
+  submitArrow: {
+    position: "absolute",
+    right: 22,
+  },
+});

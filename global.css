@@ -208,7 +208,7 @@
  * Auth field — white rounded box with a small label above the input.
  * <View className="auth-field">
  *   <Text className="auth-field__label">Email</Text>
- *   <TextInput ... />
+ *   <TextInput className="auth-field__input" ... />
  */
 @utility auth-field {
   height: 74px;
@@ -227,6 +227,15 @@
   font-size: 12px;
   line-height: 18px;
   color: var(--color-muted);
+}
+
+@utility auth-field__input {
+  height: 28px;
+  margin-top: 6px;
+  padding: 0;
+  font-family: var(--font-poppins);
+  font-size: 15px;
+  color: var(--color-foreground);
 }
 
 /*
