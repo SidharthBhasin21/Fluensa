@@ -425,3 +425,223 @@
   justify-content: center;
   gap: 4px;
 }
+
+/*
+ * Home header — flag, greeting, streak and bell.
+ * <Text className="home-header__greeting">Hola, Alex! 👋</Text>
+ */
+@utility home-header__flag {
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+}
+
+@utility home-header__greeting {
+  font-family: var(--font-poppins-semibold);
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--color-foreground);
+}
+
+@utility home-header__streak {
+  font-family: var(--font-poppins-semibold);
+  font-size: 17px;
+  line-height: 24px;
+  color: #334155;
+}
+
+@utility home-header__badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  border-width: 1.5px;
+  border-color: var(--color-background);
+  background-color: var(--color-error);
+}
+
+/*
+ * Home card — rounded illustrated card with a soft gradient background.
+ * Pick one color modifier: --goal (light sky), --continue (sky blue), --next (mint).
+ * <View className="home-card home-card--goal">
+ */
+@utility home-card {
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+@utility home-card--goal {
+  background-image: linear-gradient(to right, #eef9fc 0%, #e2f4fa 100%);
+}
+
+@utility home-card--continue {
+  background-image: linear-gradient(to bottom, #b9e4f7 0%, #d9f1fa 55%, #ecf8fb 100%);
+}
+
+@utility home-card--next {
+  background-image: linear-gradient(to right, #eef8f1 0%, #e7f6f6 100%);
+}
+
+/* Soft label at the top of a home card ("Daily goal", "Next up") */
+@utility home-card__eyebrow {
+  font-family: var(--font-poppins);
+  font-size: 15px;
+  line-height: 22px;
+  color: #334155;
+}
+
+/* White cloud puff — combine a few with different sizes */
+@utility cloud {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+/* Rounded green hill under an illustration */
+@utility hill {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: #8ed35b;
+}
+
+/*
+ * Progress bar — gray track with a teal fill.
+ * The fill width is dynamic, so it's set with an inline style.
+ * <View className="progress-bar"><View className="progress-bar__fill" style={{ width: "75%" }} /></View>
+ */
+@utility progress-bar {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: #dbe5ec;
+}
+
+@utility progress-bar__fill {
+  height: 100%;
+  border-radius: 9999px;
+  background-image: linear-gradient(to right, #14b8a6 0%, #0ea5a4 100%);
+}
+
+/* Small pill button inside a card ("Continue →") */
+@utility pill-btn {
+  height: 40px;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  gap: 10px;
+  border-radius: 9999px;
+  background-color: #0fa3a3;
+  padding-left: 19px;
+  padding-right: 17px;
+  box-shadow: 0 6px 14px rgba(15, 118, 110, 0.3);
+}
+
+@utility pill-btn__label {
+  font-family: var(--font-poppins-semibold);
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--color-background);
+}
+
+/* Section header row ("Today's plan" + "View all") */
+@utility section-title {
+  font-family: var(--font-poppins-semibold);
+  font-size: 19px;
+  line-height: 26px;
+  color: var(--color-foreground);
+}
+
+@utility section-link {
+  font-family: var(--font-poppins-medium);
+  font-size: 15px;
+  line-height: 22px;
+  color: #0fa3a3;
+}
+
+/*
+ * Plan item — one row of "Today's plan" (components/PlanItem.tsx).
+ * <TouchableOpacity className="plan-item">
+ *   <View className="plan-item__icon plan-item__icon--purple" />
+ *   <Text className="plan-item__title">Lesson</Text>
+ *   <View className="plan-item__check plan-item__check--done" />
+ */
+@utility plan-item {
+  height: 66px;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 18px;
+  border-width: 1px;
+  border-color: #eef2f6;
+  background-color: var(--color-background);
+  padding-left: 9px;
+  padding-right: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+@utility plan-item__icon {
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+}
+
+@utility plan-item__icon--purple {
+  background-color: #efebfd;
+}
+
+@utility plan-item__icon--teal {
+  background-color: #e3f6f5;
+}
+
+@utility plan-item__icon--yellow {
+  background-color: #fef4d8;
+}
+
+@utility plan-item__icon--green {
+  background-color: #e6f6df;
+}
+
+@utility plan-item__title {
+  font-family: var(--font-poppins-semibold);
+  font-size: 15px;
+  line-height: 21px;
+  color: var(--color-foreground);
+}
+
+@utility plan-item__subtitle {
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  line-height: 20px;
+  color: #64748b;
+}
+
+@utility plan-item__check {
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border-width: 2px;
+  border-color: #475569;
+}
+
+@utility plan-item__check--done {
+  border-width: 0;
+  background-color: #0fa3a3;
+}
+
+/* Round green video call button on the "Next up" card */
+@utility video-btn {
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border-width: 3px;
+  border-color: var(--color-background);
+  background-color: #5cb82e;
+  box-shadow: 0 4px 10px rgba(56, 142, 32, 0.3);
+}

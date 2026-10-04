@@ -1,4 +1,5 @@
-import type { Lesson } from "@/types/learning";
+import { getUnitsByLanguage } from "@/data/units";
+import type { LanguageCode, Lesson } from "@/types/learning";
 
 export const lessons: Lesson[] = [
   // ─── Spanish · Unit 1 ─────────────────────────────────────────
@@ -325,4 +326,26 @@ export function getLesson(id: string): Lesson | undefined {
 
 export function getLessonXp(lesson: Lesson): number {
   return lesson.activities.reduce((total, activity) => total + activity.xp, 0);
+}
+
+// All lessons for a language, in course order (unit order, then lesson order).
+export function getLessonsByLanguage(code: LanguageCode): Lesson[] {
+  return getUnitsByLanguage(code).flatMap((unit) => getLessonsByUnit(unit.id));
+}
+
+// The first lesson that still has an unfinished activity.
+// When everything is done, stay on the last lesson.
+export function getCurrentLesson(
+  code: LanguageCode,
+  completedActivityIds: string[],
+): Lesson | undefined {
+  const languageLessons = getLessonsByLanguage(code);
+
+  return (
+    languageLessons.find((lesson) =>
+      lesson.activities.some(
+        (activity) => !completedActivityIds.includes(activity.id),
+      ),
+    ) ?? languageLessons[languageLessons.length - 1]
+  );
 }
