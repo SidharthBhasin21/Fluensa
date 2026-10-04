@@ -5,6 +5,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { getLanguage } from "@/data/languages";
+import { posthog } from "@/lib/posthog";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { colors } from "@/theme";
 
@@ -23,6 +24,11 @@ export default function ProfileScreen() {
   const handleClearStorage = async () => {
     await AsyncStorage.clear();
     clearSelectedLanguage();
+  };
+
+  const handleSignOut = async () => {
+    posthog?.capture("user_signed_out");
+    await signOut();
   };
 
   return (
@@ -53,7 +59,7 @@ export default function ProfileScreen() {
 
           <TouchableOpacity
             className="btn-primary h-[56px]"
-            onPress={() => signOut()}
+            onPress={handleSignOut}
             activeOpacity={0.85}
           >
             <Text className="btn-primary__label">Sign Out</Text>

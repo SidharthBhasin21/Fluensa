@@ -10,6 +10,8 @@ import { images } from "@/constants/images";
 import { getLanguage } from "@/data/languages";
 import { getCurrentLesson } from "@/data/lessons";
 import { getUnit } from "@/data/units";
+import { posthog } from "@/lib/posthog";
+import { posthogLogger } from "@/lib/posthog-logger";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import {
   DAILY_XP_GOAL,
@@ -182,7 +184,21 @@ export default function HomeScreen() {
               key={activity.id}
               activity={activity}
               isCompleted={completedActivityIds.includes(activity.id)}
-              onPress={() => completeActivity(activity)}
+              onPress={() => {
+                if (!completedActivityIds.includes(activity.id)) {
+                  posthog?.capture("learning_activity_completed", {
+                    activity_id: activity.id,
+                    activity_type: activity.type,
+                    xp_earned: activity.xp,
+                  });
+                  posthogLogger.info("learning activity completed", {
+                    activity_id: activity.id,
+                    activity_type: activity.type,
+                    xp_earned: activity.xp,
+                  });
+                }
+                completeActivity(activity);
+              }}
             />
           ))}
         </View>
@@ -191,7 +207,11 @@ export default function HomeScreen() {
         {videoCall && (
           <TouchableOpacity
             className="mt-[16px] h-[114px] pt-[12px]"
-            onPress={() => router.push("/ai-teacher")}
+            onPress={() => {
+              posthog?.capture("ai_teacher_opened");
+              posthogLogger.info("ai teacher opened");
+              router.push("/ai-teacher");
+            }}
             activeOpacity={0.85}
           >
             <View className="home-card home-card--next flex-1">

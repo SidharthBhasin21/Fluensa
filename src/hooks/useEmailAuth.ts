@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 
 import { getClerkErrorMessage } from "@/lib/clerk";
+import { posthog } from "@/lib/posthog";
 
 export type AuthMode = "sign-in" | "sign-up";
 
@@ -89,6 +90,7 @@ export function useEmailAuth(mode: AuthMode) {
         return false;
       }
       await signIn.finalize({ navigate });
+      posthog?.capture("email_auth_completed", { auth_mode: mode });
       return true;
     }
 
@@ -102,6 +104,7 @@ export function useEmailAuth(mode: AuthMode) {
       return false;
     }
     await signUp.finalize({ navigate });
+    posthog?.capture("email_auth_completed", { auth_mode: mode });
     return true;
   };
 
