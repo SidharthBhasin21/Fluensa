@@ -25,30 +25,6 @@ export const languages: Language[] = [
     learners: "12.7M",
     greeting: "こんにちは",
   },
-  {
-    code: "ko",
-    name: "Korean",
-    nativeName: "한국어",
-    flag: "https://flagcdn.com/w320/kr.png",
-    learners: "9.3M",
-    greeting: "안녕하세요",
-  },
-  {
-    code: "de",
-    name: "German",
-    nativeName: "Deutsch",
-    flag: "https://flagcdn.com/w320/de.png",
-    learners: "8.1M",
-    greeting: "Hallo",
-  },
-  {
-    code: "zh",
-    name: "Chinese",
-    nativeName: "中文",
-    flag: "https://flagcdn.com/w320/cn.png",
-    learners: "7.4M",
-    greeting: "你好",
-  },
 ];
 
 export function getLanguage(code: LanguageCode): Language | undefined {

@@ -1,4 +1,4 @@
-export type LanguageCode = "es" | "fr" | "ja" | "ko" | "de" | "zh";
+export type LanguageCode = "es" | "fr" | "ja";
 
 export type CefrLevel = "A1" | "A2" | "B1";
 
