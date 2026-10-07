@@ -645,3 +645,185 @@
   background-color: #5cb82e;
   box-shadow: 0 4px 10px rgba(56, 142, 32, 0.3);
 }
+
+/*
+ * Lesson hero — full-width lesson photo at the top of the Learn screen.
+ * The fade keeps the dark title readable over any photo and softens the bottom edge.
+ * <View className="lesson-hero">
+ *   <Image className="absolute inset-0" />
+ *   <View className="lesson-hero__fade" />
+ *   <Text className="lesson-hero__title">At the Café</Text>
+ */
+@utility lesson-hero {
+  overflow: hidden;
+  background-color: #dff1fa;
+}
+
+@utility lesson-hero__fade {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.7) 30%,
+    rgba(255, 255, 255, 0) 55%,
+    rgba(255, 255, 255, 0) 85%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+}
+
+@utility lesson-hero__title {
+  font-family: var(--font-poppins-bold);
+  font-size: 22px;
+  line-height: 30px;
+  color: var(--color-foreground);
+}
+
+@utility lesson-hero__subtitle {
+  font-family: var(--font-poppins);
+  font-size: 15px;
+  line-height: 22px;
+  color: #64748b;
+}
+
+/* White tile with a yellow bookmark in the hero's top-right corner */
+@utility lesson-hero__bookmark {
+  width: 30px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: var(--color-background);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+/*
+ * Lesson tabs — "Lessons / Practice" segmented control under the hero.
+ * <View className="lesson-tabs">
+ *   <TouchableOpacity className="lesson-tabs__item lesson-tabs__item--active">
+ *     <Text className="lesson-tabs__label lesson-tabs__label--active">Lessons</Text>
+ */
+@utility lesson-tabs {
+  height: 52px;
+  flex-direction: row;
+  border-radius: 16px;
+  background-color: rgba(238, 242, 247, 0.95);
+}
+
+@utility lesson-tabs__item {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+}
+
+/* White segment with a teal underline that follows the rounded corners */
+@utility lesson-tabs__item--active {
+  border-bottom-width: 3px;
+  border-color: #14b8a6;
+  background-color: var(--color-background);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+@utility lesson-tabs__label {
+  font-family: var(--font-poppins-medium);
+  font-size: 17px;
+  line-height: 24px;
+  color: #64748b;
+}
+
+@utility lesson-tabs__label--active {
+  font-family: var(--font-poppins-semibold);
+  color: #0fa3a3;
+}
+
+/*
+ * Lesson card — one row of the lesson list (components/LessonCard.tsx).
+ * <TouchableOpacity className="lesson-card lesson-card--selected">
+ *   <Text className="lesson-card__label lesson-card__label--selected">Lesson 3</Text>
+ *   <Text className="lesson-card__title">At the Café</Text>
+ *   <Text className="lesson-card__meta lesson-card__meta--active">In progress</Text>
+ *   <View className="lesson-card__status lesson-card__status--completed" />
+ */
+@utility lesson-card {
+  flex-direction: row;
+  align-items: center;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: #e8edf3;
+  background-color: var(--color-background);
+  padding-top: 11px;
+  padding-bottom: 11px;
+  padding-left: 17px;
+  padding-right: 14px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+@utility lesson-card--selected {
+  border-width: 1.5px;
+  border-color: #8fdcd5;
+  background-color: #ebf9f9;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.12);
+}
+
+@utility lesson-card__label {
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  line-height: 20px;
+  color: #64748b;
+}
+
+@utility lesson-card__label--selected {
+  color: #0fa3a3;
+}
+
+@utility lesson-card__title {
+  font-family: var(--font-poppins-semibold);
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--color-foreground);
+}
+
+/* Lessons that haven't started use a lighter title */
+@utility lesson-card__title--muted {
+  font-family: var(--font-poppins-medium);
+}
+
+@utility lesson-card__meta {
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  line-height: 22px;
+  color: #64748b;
+}
+
+@utility lesson-card__meta--active {
+  font-family: var(--font-poppins-medium);
+  font-size: 15px;
+  color: #0fa3a3;
+}
+
+/* Round status badge on the right: green check (done) or teal play (in progress) */
+@utility lesson-card__status {
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+}
+
+@utility lesson-card__status--completed {
+  background-color: #1fae3c;
+}
+
+@utility lesson-card__status--progress {
+  background-color: #0fa3a3;
+}
+
+@utility lesson-card__thumb {
+  width: 88px;
+  height: 61px;
+  border-radius: 10px;
+}
