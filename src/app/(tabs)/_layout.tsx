@@ -24,7 +24,12 @@ export default function TabsLayout() {
   }
 
   return (
-    <Tabs tabBar={(props) => <TabBar {...props} />} screenOptions={{ headerShown: false }}>
+    // "history" makes back (and End Call) return to the tab the user came from.
+    <Tabs
+      tabBar={(props) => <TabBar {...props} />}
+      backBehavior="history"
+      screenOptions={{ headerShown: false }}
+    >
       <Tabs.Screen name="home" options={{ title: "Home" }} />
       <Tabs.Screen name="learn" options={{ title: "Learn" }} />
       <Tabs.Screen name="ai-teacher" options={{ title: "AI Teacher" }} />

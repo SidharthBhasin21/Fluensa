@@ -827,3 +827,338 @@
   height: 61px;
   border-radius: 10px;
 }
+
+/*
+ * Call header — "AI Teacher" title, session status and round icon buttons
+ * at the top of the audio lesson screen.
+ * <Text className="call-header__title">AI Teacher</Text>
+ * <View className="call-header__dot call-header__dot--online" />
+ * <View className="call-header__btn"><Text className="call-header__count">12</Text></View>
+ */
+@utility call-screen {
+  background-image: linear-gradient(to bottom, #ffffff 0%, #f8fafc 60%, #eef5f9 100%);
+}
+
+@utility call-header__title {
+  font-family: var(--font-poppins-bold);
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--color-foreground);
+}
+
+@utility call-header__status {
+  font-family: var(--font-poppins);
+  font-size: 15px;
+  line-height: 20px;
+  color: #64748b;
+}
+
+@utility call-header__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+}
+
+@utility call-header__dot--online {
+  background-color: #22c55e;
+}
+
+@utility call-header__dot--muted {
+  background-color: #f59e0b;
+}
+
+@utility call-header__btn {
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-color: #e2e8f0;
+  background-color: var(--color-background);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+@utility call-header__count {
+  font-family: var(--font-poppins-medium);
+  font-size: 17px;
+  line-height: 22px;
+  color: var(--color-foreground);
+}
+
+/*
+ * Call stage — the illustrated classroom where the AI teacher sits.
+ * Warm wall at the top, wooden desk, then a fade into the page background.
+ * Everything inside is positioned absolutely.
+ */
+@utility call-stage {
+  overflow: hidden;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  background-image: linear-gradient(
+    to bottom,
+    #fdf3e3 0%,
+    #f9e6cb 45%,
+    #f3d6b2 66%,
+    #d9b392 80%,
+    #cfae95 90%,
+    #f8fafc 100%
+  );
+}
+
+@utility call-stage__window {
+  position: absolute;
+  border-width: 5px;
+  border-color: #fff8ec;
+  background-image: linear-gradient(to bottom, #bfe5f7 0%, #e3f4fb 60%, #cfe9b8 100%);
+}
+
+@utility call-stage__poster {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 6px;
+  border-width: 4px;
+  border-color: #f4dfb9;
+  background-color: #e8f6fb;
+  box-shadow: 0 4px 10px rgba(120, 82, 40, 0.15);
+}
+
+@utility call-stage__desk {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background-image: linear-gradient(to bottom, #f0c993 0%, #e2b47e 30%, rgba(217, 179, 146, 0) 100%);
+}
+
+/* A book in the stack on the desk. Pick one color modifier. */
+@utility call-stage__book {
+  position: absolute;
+  height: 26px;
+  justify-content: center;
+  border-radius: 5px;
+  padding-left: 12px;
+}
+
+@utility call-stage__book--teal {
+  background-color: #1aa3a3;
+}
+
+@utility call-stage__book--yellow {
+  background-color: #f3b62b;
+}
+
+@utility call-stage__book--red {
+  background-color: #d9473b;
+}
+
+@utility call-stage__book-label {
+  font-family: var(--font-poppins-semibold);
+  font-size: 13px;
+  line-height: 18px;
+  color: #fde7c9;
+}
+
+/* The learner's own tile in the top-right corner (profile photo, no camera) */
+@utility call-stage__self {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 14px;
+  border-width: 3px;
+  border-color: var(--color-background);
+  background-color: #e3f6f5;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
+}
+
+@utility call-stage__self-badge {
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: var(--color-error);
+}
+
+/*
+ * Teacher bubble — what the AI teacher just said, with an optional translation.
+ * <View className="teacher-bubble">
+ *   <Text className="teacher-bubble__text">¡Muy bien!</Text>
+ *   <Text className="teacher-bubble__translation">That was great!</Text>
+ *   <View className="teacher-bubble__tail" />
+ */
+@utility teacher-bubble {
+  position: absolute;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 16px;
+  background-color: var(--color-background);
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 18px;
+  padding-right: 14px;
+  box-shadow: 0 8px 20px rgba(120, 82, 40, 0.15);
+}
+
+@utility teacher-bubble__tail {
+  position: absolute;
+  bottom: -7px;
+  right: 34px;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background-color: var(--color-background);
+  transform: rotate(45deg);
+}
+
+@utility teacher-bubble__text {
+  font-family: var(--font-poppins-semibold);
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--color-foreground);
+}
+
+@utility teacher-bubble__translation {
+  margin-top: 2px;
+  font-family: var(--font-poppins);
+  font-size: 15px;
+  line-height: 22px;
+  color: #475569;
+}
+
+/*
+ * Call control — round button with a label under it (Mic, Subtitles, End Call).
+ * <TouchableOpacity className="call-control">
+ *   <View className="call-control__circle call-control__circle--end" />
+ *   <Text className="call-control__label">End Call</Text>
+ */
+@utility call-control {
+  flex: 1;
+  align-items: center;
+}
+
+@utility call-control__circle {
+  width: 62px;
+  height: 62px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: var(--color-background);
+  box-shadow: 0 6px 14px rgba(90, 60, 30, 0.15);
+}
+
+/* Toggled off (mic muted, speaker off, subtitles hidden) */
+@utility call-control__circle--off {
+  background-color: #e2e8f0;
+}
+
+@utility call-control__circle--end {
+  background-color: #f23b3b;
+  box-shadow: 0 8px 18px rgba(242, 59, 59, 0.35);
+}
+
+@utility call-control__label {
+  margin-top: 10px;
+  font-family: var(--font-poppins-medium);
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--color-background);
+}
+
+/*
+ * Feedback card — Speaking / Pronunciation / Grammar scores in three columns.
+ * The fill width is dynamic, so it's set with an inline style.
+ * <View className="feedback-card">
+ *   <View className="feedback-card__item feedback-card__item--divider">
+ *     <Text className="feedback-card__label">Speaking</Text>
+ *     <View className="feedback-card__track"><View className="feedback-card__fill bg-success" /></View>
+ *     <Text className="feedback-card__rating text-success">Excellent</Text>
+ */
+@utility feedback-card {
+  flex-direction: row;
+  border-radius: 18px;
+  background-color: var(--color-background);
+  padding-top: 24px;
+  padding-bottom: 24px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+}
+
+@utility feedback-card__item {
+  flex: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@utility feedback-card__item--divider {
+  border-left-width: 1px;
+  border-color: #e2e8f0;
+}
+
+@utility feedback-card__label {
+  font-family: var(--font-poppins-medium);
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--color-foreground);
+}
+
+@utility feedback-card__track {
+  height: 10px;
+  margin-top: 13px;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: #e8edf3;
+}
+
+@utility feedback-card__fill {
+  height: 100%;
+  border-radius: 9999px;
+}
+
+@utility feedback-card__rating {
+  margin-top: 13px;
+  font-family: var(--font-poppins-semibold);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+/*
+ * Phrase row — one key phrase of the lesson. Tapping it makes the teacher say it.
+ * <TouchableOpacity className="phrase-row phrase-row--active">
+ *   <Text className="phrase-row__text">¿Cómo estás?</Text>
+ *   <Text className="phrase-row__translation">How are you?</Text>
+ */
+@utility phrase-row {
+  flex-direction: row;
+  align-items: center;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: #e8edf3;
+  background-color: var(--color-background);
+  padding-top: 11px;
+  padding-bottom: 11px;
+  padding-left: 17px;
+  padding-right: 14px;
+}
+
+@utility phrase-row--active {
+  border-width: 1.5px;
+  border-color: #8fdcd5;
+  background-color: #ebf9f9;
+}
+
+@utility phrase-row__text {
+  font-family: var(--font-poppins-semibold);
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--color-foreground);
+}
+
+@utility phrase-row__translation {
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  line-height: 20px;
+  color: #64748b;
+}

@@ -158,23 +158,21 @@ export default function LearnScreen() {
 
         {activeTab === "lessons" ? (
           // Every lesson can be opened — there's no locking yet.
-          // First tap selects a lesson, tapping it again opens its activities.
+          // Tapping a lesson selects it and opens its AI teacher audio lesson.
           <View className="mt-[18px] gap-[7px] px-[17px]">
-            {lessons.map((lesson, index) => {
-              const isSelected = lesson.id === selectedLesson.id;
-              return (
-                <LessonCard
-                  key={lesson.id}
-                  lesson={lesson}
-                  number={index + 1}
-                  status={getLessonStatus(lesson, completedActivityIds, currentLesson?.id)}
-                  isSelected={isSelected}
-                  onPress={() =>
-                    isSelected ? setActiveTab("practice") : setSelectedLessonId(lesson.id)
-                  }
-                />
-              );
-            })}
+            {lessons.map((lesson, index) => (
+              <LessonCard
+                key={lesson.id}
+                lesson={lesson}
+                number={index + 1}
+                status={getLessonStatus(lesson, completedActivityIds, currentLesson?.id)}
+                isSelected={lesson.id === selectedLesson.id}
+                onPress={() => {
+                  setSelectedLessonId(lesson.id);
+                  router.navigate({ pathname: "/ai-teacher", params: { lessonId: lesson.id } });
+                }}
+              />
+            ))}
           </View>
         ) : (
           // Activities of the selected lesson. Tapping marks one done for now.
