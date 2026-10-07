@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 
 import { getClerkErrorMessage } from "@/lib/clerk";
+import { posthog } from "@/lib/posthog";
 
 // Social sign in (Google, ...) through Clerk. Opens the provider's login page in an
 // in-app browser and works for both new and existing users.
@@ -21,6 +22,7 @@ export function useSocialAuth() {
 
       if (createdSessionId && setActive) {
         await setActive({ session: createdSessionId });
+        posthog?.capture("social_auth_completed", { provider: strategy });
         router.replace("/");
       } else if (signUp?.status === "missing_requirements") {
         setError("Your account is missing some required details.");

@@ -32,6 +32,9 @@ const TAB_ICONS: Record<string, SymbolViewProps["name"]> = {
   profile: { ios: "person", android: "person_outline", web: "person_outline" },
 };
 
+// Tabs that take over the whole screen, so the bar is hidden on them.
+const HIDDEN_ON = ["ai-teacher"];
+
 // Custom bottom tab bar.
 // The selected tab sits inside a teal circle (icon only),
 // the other tabs show their icon and label.
@@ -52,6 +55,11 @@ export default function TabBar({ state, descriptors, navigation, insets }: Botto
   const circleStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: circleX.value }],
   }));
+
+  // Full-screen tabs (like the AI Teacher lesson) hide the bar.
+  if (HIDDEN_ON.includes(state.routes[state.index].name)) {
+    return null;
+  }
 
   return (
     <View className="tab-bar" style={{ paddingBottom: Math.max(insets.bottom, 12) }}>

@@ -28,6 +28,22 @@ export const units: Unit[] = [
     title: "First Steps",
     description: "Greet people politely and introduce yourself.",
   },
+  {
+    id: "fr-u2",
+    languageCode: "fr",
+    order: 2,
+    level: "A1",
+    title: "Around Town",
+    description: "Order at a café, find your way, and go shopping.",
+  },
+  {
+    id: "fr-u3",
+    languageCode: "fr",
+    order: 3,
+    level: "A1",
+    title: "People I Know",
+    description: "Talk about your family and friends.",
+  },
 
   // Japanese
   {
@@ -37,6 +53,22 @@ export const units: Unit[] = [
     level: "A1",
     title: "First Steps",
     description: "Learn basic greetings and simple introductions.",
+  },
+  {
+    id: "ja-u2",
+    languageCode: "ja",
+    order: 2,
+    level: "A1",
+    title: "Around Town",
+    description: "Order at a café, find your way, and go shopping.",
+  },
+  {
+    id: "ja-u3",
+    languageCode: "ja",
+    order: 3,
+    level: "A1",
+    title: "People I Know",
+    description: "Talk about your family and friends.",
   },
 ];
 

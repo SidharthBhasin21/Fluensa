@@ -1,3 +1,5 @@
+import type { ImageSourcePropType } from "react-native";
+
 export type LanguageCode = "es" | "fr" | "ja";
 
 export type CefrLevel = "A1" | "A2" | "B1";
@@ -71,6 +73,10 @@ export interface Lesson {
   goals: string[];
   vocabulary: VocabularyItem[];
   phrases: Phrase[];
+  // Illustration shown in the lesson header and on the selected lesson card.
+  image: ImageSourcePropType;
   activities: Activity[];
   aiTeacher: AiTeacherPrompt;
 }
+
+export type LessonStatus = "completed" | "in-progress" | "not-started";
